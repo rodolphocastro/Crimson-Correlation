@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @series.description %>
+</p>
+
+<p>
+  <strong>Data series:</strong>
+  <%= @series.data_series %>
+</p>
+
+<p>
+	<strong>Data Array:</strong>
+	<%= @series.data_array%>
+</p>
+<p>
+	<strong>Mean:</strong>
+	<%= @series.mean %>
+</p>
+
+<p>
+	<strong>Variance:</strong>
+	<%= @series.var %>
+</p>
+
+<p>
+	<strong>AC Series:</strong>
+	<%= @series.ac_series %>
+</p>
+
+<p>
+	<strong>Data Chart:</strong><br>
+	<img src="<%= 
+		Gchart.line( 
+            :data => [@series.data_array])
+	%>" alt="">
+</p>
+
+<p>
+	<strong>AC Chart:</strong><br>
+	<img src="<%=
+		Gchart.line(
+			:data => [@series.ac_series])
+	%>" alt="">
+</p>
+<%= link_to 'Edit', edit_series_path(@series) %> |
+<%= link_to 'Back', series_index_path %>
