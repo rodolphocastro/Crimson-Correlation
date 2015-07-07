@@ -11,10 +11,6 @@
 </p>
 
 <p>
-	<strong>Data Array:</strong>
-	<%= @series.data_array%>
-</p>
-<p>
 	<strong>Mean:</strong>
 	<%= @series.mean %>
 </p>
@@ -33,6 +29,15 @@
 	<strong>Data Chart:</strong><br>
 	<img src="<%= 
 		Gchart.line( 
+			:title => 'Series Chart',
+			:size => '500x300',
+			:axis_with_labels => 'y',
+			:legend => ['Values'],
+			:encoding => 'extended',
+			:max_value => @series.data_array.max,
+			:min_value => @series.data_array.min,
+			:axis_range => [[@series.data_array.min, @series.data_array.max, 2]],
+			:theme => :pastel,
             :data => [@series.data_array])
 	%>" alt="">
 </p>
@@ -41,8 +46,30 @@
 	<strong>AC Chart:</strong><br>
 	<img src="<%=
 		Gchart.line(
+			:title => 'AutoCorrelation - Line',
+			:size => '500x300',
+			:axis_with_labels => 'y',
+			:legend => ['AC Values'],
+			:encoding => 'extended',
+			:max_value => @series.ac_series.max,
+			:min_value => @series.ac_series.min,
+			:axis_range => [[@series.ac_series.min, @series.ac_series.max, 2]],
+			:theme => :pastel,
 			:data => [@series.ac_series])
 	%>" alt="">
+	<!-- <img src="<%=
+		Gchart.bar(
+			:title => 'AutoCorrelation Histogram',
+			:size => '500x300',
+			:axis_with_labels => 'y',
+			:encoding => 'extended',
+			:max_value => @series.ac_series.max,
+			:min_value => @series.ac_series.min,
+			:axis_range => [[@series.ac_series.min, @series.ac_series.max, 2]],
+			:theme => :pastel,
+			:stacked => false,
+			:data => [@series.ac_series])
+	%>" alt="">-->
 </p>
 <%= link_to 'Edit', edit_series_path(@series) %> |
 <%= link_to 'Back', series_index_path %>

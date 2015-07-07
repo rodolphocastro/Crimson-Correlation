@@ -1,8 +1,7 @@
-<%= form_for(@series) do |f| %>
+<%= form_for(@series, html: {class: 'form-horizontal'}) do |f| %>
   <% if @series.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@series.errors.count, "error") %> prohibited this series from being saved:</h2>
-
       <ul>
       <% @series.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,15 +10,21 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+  <div class="field form-group">
+    <%= f.label :description, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+      <%= f.text_field :description, class: 'form-control' %>  
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :data_series %><br>
-    <%= f.text_field :data_series %>
+  <div class="field form-group">
+    <%= f.label :data_series, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+      <%= f.text_field :data_series, class: 'form-control' %>  
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+      <%= f.submit %>
+    </div>
   </div>
 <% end %>

@@ -2,6 +2,7 @@ class Series < ActiveRecord::Base
 	attr_accessor :data_array, :mean, :var
 	attr_accessor :ac_series
 
+	# Method for automatically doing the autocorrelation from t=1 up to t=n, whereas n == the array length.
 	def auto_ac
 		self.do_mean
 		self.do_variance

@@ -43,5 +43,11 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# Charting Helper
+# Google Charts, a gem that makes it easy to use Google Charts own API
 gem 'googlecharts'
+
+# Bootstrap SASS, fancy looking CSS made easy.
+gem 'bootstrap-sass', '~> 3.2.0'
+
+# Autoprefixer, automatically adds vendor prefixes to CSS codes upon compilation
+gem 'autoprefixer-rails'
