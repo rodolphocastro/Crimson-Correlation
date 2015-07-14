@@ -1,75 +1,140 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @series.description %>
-</p>
+<center><h1>Data for Series #<%= @series.id %></h1></center>
 
-<p>
-  <strong>Data series:</strong>
-  <%= @series.data_series %>
-</p>
+<center><h2>Basic Information</h2></center>
+<div class="row">
+	<div class="col-md-1">
+		<strong>Description:</strong>
+	</div>
+	<div class="col-md-11">
+		<%= @series.description %>		
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-1">
+		<strong>Series' Size:</strong>
+	</div>
+	<div class="col-md-11">
+		<%= @series.data_array.length %>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-1">
+		<strong>Data Series:</strong>
+	</div>
+	<div class="col-md-11">
+		<%= @series.data_series %>		
+	</div>
+</div>
+<br>
+<center><h2>Statistics</h2></center>
+<div class="row">
+	<span class="has-tooltip" data-toggle="tooltip" title="Mean is the average value of the series.">
+		<div class="col-md-1">
+			<strong>Mean:</strong>
+		</div>
+		<div class="col-md-11">
+			<%= @series.mean %>
+		</div>
+	</span>
+</div>
+<div class="row">
+	<span class="has-tooltip" data-toggle="tooltip" title="Variance measures how far the numbers are spread out.">
+		<div class="col-md-1">
+			<strong>Variance:</strong>		
+		</div>
+		<div class="col-md-11">
+			<%= @series.var %>
+		</div>	
+	</span>
+</div>
+<div class="row">
+	<span class="has-tooltip" data-toggle="tooltip" title="The Standard Deviation quantifies the dispersion of data values on the series. The closer it is to 0, the more the numbers are close to the mean.">
+		<div class="col-md-1">
+			<strong>Standard Deviation:</strong>
+		</div>
+		<div class="col-md-11">
+			<%= Math.sqrt(@series.var) %>
+		</div>
+	</span>
+</div>
+<div class="row">
+	<span class="has-tooltip" data-toggle="tooltip" title="The autocorrelation measures how data from the series correlates with itself.">
+		<div class="col-md-1">
+			<strong>Autocorrelation Values:</strong>
+		</div>
+		<div class="col-md-11">
+			<%= @series.ac_series %>
+		</div>
+	</span>
+</div>
+<br>
+<center><h2>Charts</h2></center>
+<div class="row">
+	<center><h3>Series' Values</h3></center>
+	<div class="row col-md-12">
+		<center>
+			<img src="<%= 
+				Gchart.line( 
+					:size => '1000x300',
+					:axis_with_labels => 'y',
+					:legend => ['Values'],
+					:encoding => 'extended',
+					:max_value => @series.data_array.max,
+					:min_value => @series.data_array.min,
+					:axis_range => [[@series.data_array.min, @series.data_array.max, 2]],
+					:theme => :pastel,
+		            :data => [@series.data_array])
+				%>"
+			 alt="">
+		</center>
+	</div>
+</div>
+<br>
+<div class="row">
+	<center><h3>AutoCorrelation - Values</h3></center>
+	<div class="row col-md-12">
+		<center>
+			<img src="<%=
+				Gchart.line(
+					:size => '1000x300',
+					:axis_with_labels => 'y',
+					:legend => ['AC Values'],
+					:encoding => 'extended',
+					:max_value => @series.ac_series.max,
+					:min_value => @series.ac_series.min,
+					:axis_range => [[@series.ac_series.min, @series.ac_series.max, 2]],
+					:theme => :pastel,
+					:data => [@series.ac_series])
+				%>" 
+			alt="">
+		</center>
+	</div>
+</div>
+<div class="row">
+	<center><h3>AuroCorrelation - Histogram</h3></center>
+	<div class="row col-md-12">
+		<center>
+			<img src="<%=
+				Gchart.bar(
+					:size => '1000x300',
+					:axis_with_labels => 'y',
+					:encoding => 'text',
+					:max_value => 1,
+					:min_value => -1,
+					:bar_width_and_spacing => '15,2',
+					:axis_range => [[@series.ac_series.min, @series.ac_series.max, 2]],
+					:theme => :pastel,
+					:stacked => true,
+					:data => [@series.ac_series.first(60)])
+				%>" 
+			alt="">
+		</center>
+	</div>
+</div>
+<div class="row col-md-12">
+	<%= link_to 'Edit', edit_series_path(@series) %> |
+	<%= link_to 'Back', series_index_path %>
+</div>
 
-<p>
-	<strong>Mean:</strong>
-	<%= @series.mean %>
-</p>
-
-<p>
-	<strong>Variance:</strong>
-	<%= @series.var %>
-</p>
-
-<p>
-	<strong>AC Series:</strong>
-	<%= @series.ac_series %>
-</p>
-
-<p>
-	<strong>Data Chart:</strong><br>
-	<img src="<%= 
-		Gchart.line( 
-			:title => 'Series Chart',
-			:size => '500x300',
-			:axis_with_labels => 'y',
-			:legend => ['Values'],
-			:encoding => 'extended',
-			:max_value => @series.data_array.max,
-			:min_value => @series.data_array.min,
-			:axis_range => [[@series.data_array.min, @series.data_array.max, 2]],
-			:theme => :pastel,
-            :data => [@series.data_array])
-	%>" alt="">
-</p>
-
-<p>
-	<strong>AC Chart:</strong><br>
-	<img src="<%=
-		Gchart.line(
-			:title => 'AutoCorrelation - Line',
-			:size => '500x300',
-			:axis_with_labels => 'y',
-			:legend => ['AC Values'],
-			:encoding => 'extended',
-			:max_value => @series.ac_series.max,
-			:min_value => @series.ac_series.min,
-			:axis_range => [[@series.ac_series.min, @series.ac_series.max, 2]],
-			:theme => :pastel,
-			:data => [@series.ac_series])
-	%>" alt="">
-	<!-- <img src="<%=
-		Gchart.bar(
-			:title => 'AutoCorrelation Histogram',
-			:size => '500x300',
-			:axis_with_labels => 'y',
-			:encoding => 'extended',
-			:max_value => @series.ac_series.max,
-			:min_value => @series.ac_series.min,
-			:axis_range => [[@series.ac_series.min, @series.ac_series.max, 2]],
-			:theme => :pastel,
-			:stacked => false,
-			:data => [@series.ac_series])
-	%>" alt="">-->
-</p>
-<%= link_to 'Edit', edit_series_path(@series) %> |
-<%= link_to 'Back', series_index_path %>

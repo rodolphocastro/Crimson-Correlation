@@ -12,7 +12,6 @@ class SeriesController < ApplicationController
   def show
     @series = Series.find(params[:id])
     @series.auto_ac
-    # To do: Implement the calculation of the correlations.
   end
 
   # GET /series/new

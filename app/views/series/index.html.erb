@@ -15,38 +15,42 @@
   <tbody>
     <% @series.each do |series| %>
       <tr>
-        <td><%= series.description %></td>
-          <td><% if series.data_series? %>
-            <!-- Button to Trigger the Modal -->
-            <button class="btn btn-primary" data-toggle="modal" data-target="#series-<%= series.id %>-data_series">
-              View Series
-            </button>
-            <div class="modal fade" id="series-<%= series.id %>-data_series" tabindex="-1" role="dialog" aria-labelledby="series-<%= series.id %>-label" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title" id="series-<%= series.id %>-label">Data Series</h4>
-                  </div>
-                  <div class="modal-body">
-                    <%= series.data_series %>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                  </div>
+        <td>
+          <span class="has-tooltip" data-toggle="tooltip" title="<%= "Created on #{series.created_at.strftime("%m/%e/%Y at %w:%M %p")}" %>">
+            <%= series.description %>  
+          </span>
+        </td>
+        <td><% if series.data_series? %>
+          <!-- Button to Trigger the Modal -->
+          <button class="btn btn-primary" data-toggle="modal" data-target="#series-<%= series.id %>-data_series">
+            View Series
+          </button>
+          <div class="modal fade" id="series-<%= series.id %>-data_series" tabindex="-1" role="dialog" aria-labelledby="series-<%= series.id %>-label" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="series-<%= series.id %>-label">Data Series</h4>
+                </div>
+                <div class="modal-body">
+                  <%= series.data_series %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
-          </td>
-        <% end %>
-        <td class="col">
-          <%= link_to 'Show', series, class: 'btn btn-primary' %>
+          </div>
         </td>
-        <td>
-          <%= link_to 'Edit', edit_series_path(series), class:'btn btn-primary' %>
-        </td>
-        <td>
-          <%= link_to 'Destroy', series, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
-        </td>
+    <% end %>
+    <td class="col">
+      <%= link_to 'Show', series, class: 'btn btn-primary' %>
+    </td>
+    <td>
+      <%= link_to 'Edit', edit_series_path(series), class:'btn btn-primary' %>
+    </td>
+    <td>
+      <%= link_to 'Destroy', series, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    </td>
       </tr>
     <% end %>
   </tbody>

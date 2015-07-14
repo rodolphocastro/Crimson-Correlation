@@ -72,9 +72,24 @@ As of right now not everything is set on stone, but besides the builtin Rails' g
         - Added *autoprefixer-rails* to the Gemfile
     * Versioning:
         - Added epic codenames for each version
-+ Version 0.3 - 'Winds of Change' (Planned):
++ Version 0.3 - 'Winds of Change':
     * Updated Views:
-        - *Show* now fits the other views styles.
+        - Show:
+            + *Show* view now matches the other views' styles
+            + Added Tooltips
+            + Further fine-tuning of charts mechanics
+        - Edit:
+            + *Edit* view now matches the other views' styles
+        - Index:
+            + Tooltips added (Mouseover description for created @ data)
     * Fine-Tuning of Data processing:
-        - Autocorrelation no longer calculates out of range entries.
-+ Version 0.4 - TBA
+        - Autocorrelation no longer calculates out of range entries
++ Version 0.4 - 'War Marchine' (Planned)
+    * Dependencies:
+        - Removed *googlecharts* from the Gemfile
+        - Added *chartkick* to the Gemfile
+    * Views:
+        - Changed from bootstrap's default theme to a new custom theme
+        - Show:
+            + Charts updated from *googlecharts* to *chartkick*
+            + Added an option to export the series' data to a CSV file

@@ -10,9 +10,11 @@ class Series < ActiveRecord::Base
 
 		@n = self.data_array.length
 		
-		for i in 1 ... @n
+		for i in 1 ... @n/2
 			self.ac_series << do_autocorrelation(i)
 		end
+		# 1 / sqrt(n)
+		# Limite Superior -> 1,96 (Indice de Cagaço, distri. normal)
 	end
 
 	# Method for doing the autocorrelation for a given lag
